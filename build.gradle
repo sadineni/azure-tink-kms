@@ -1,0 +1,39 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+group 'org.apache.tink.azurekms'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation ('com.azure:azure-security-keyvault-secrets:4.2.3')
+    implementation 'com.azure:azure-security-keyvault-certificates:4.1.2'
+    implementation ('com.azure:azure-security-keyvault-keys:4.1.2')
+    implementation ('com.azure:azure-identity:1.0.5')
+    implementation ('com.azure:azure-core:1.4.0')
+    implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.3'
+    api group: 'com.google.crypto.tink', name: 'tink', version: '1.6.0'
+    implementation group: 'com.google.auto.service', name: 'auto-service', version: '1.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+compileJava {
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+}
+test {
+    useJUnitPlatform()
+}
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
